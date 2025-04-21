@@ -9,15 +9,15 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class ItemController {
+public class NoticeController {
 
-    private final ItemRepository itemRepository;
+    private final NoticeRepository noticeRepository;
 
-    @GetMapping("/list")
-    String list(Model model) {
-        List<Item> result = itemRepository.findAll();
+    @GetMapping("/notice")
+    String notice(Model model) {
+        List<Notice> result = noticeRepository.findAll();
 
-        model.addAttribute("items", result);
-        return "list.html";
+        model.addAttribute("notices", result);
+        return "notice.html";
     }
 }
