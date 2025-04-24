@@ -11,8 +11,8 @@ public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     @Column(nullable = false)
-    public String title;
+    private String title;
     @Column()
-    public Integer price;
+    private Integer price;
 }
 

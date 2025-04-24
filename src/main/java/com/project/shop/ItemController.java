@@ -29,6 +29,21 @@ public class ItemController {
     @PostMapping("/add")
     String addPost(@ModelAttribute Item item) {
         itemRepository.save(item);
+        /*
+        1.
+        String addPost(String title, Integer price) {
+        Item item = new Item();
+        item.title = "양말" / title;
+        item.price = 5000 / price;
+        itemRepository.save(item);
+        }
+
+        2.
+        Item item = new Item();
+        item.setTitle(title);
+        item.setPrice(price);
+        itemRepository.save(item);
+         */
         return "redirect:/list";
     }
 }
