@@ -1,6 +1,7 @@
 package com.project.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,14 +50,34 @@ public class ItemController {
     }
 
     @GetMapping("/detail/{id}")
-    String detail(@PathVariable Long id, Model model) {
-    Optional <Item> result = itemRepository.findById(id);
-    if(result.isPresent()) {
-        model.addAttribute("data", result.get());
-        return "detail.html";
-    } else {
-        return "redirect:/list";
-    }
+    public String detail(@PathVariable Long id, Model model) {
+        try {
+            Optional<Item> result = itemRepository.findById(id);
+            if (result.isPresent()) {
+                model.addAttribute("data", result.get());
+                return "detail"; // detail.html 템플릿 렌더링
+            } else {
+                return "redirect:/list"; // id가 없을 경우 리스트로 리디렉션
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // 서버 로그에 출력 (또는 로깅 처리)
+            return "error"; // error.html 같은 에러 템플릿을 만들어 두면 좋아요
+        }
     }
 
+
+
+
+//        Optional<Item> result = itemRepository.findById(id);
+//        if (result.isPresent()) {
+//            model.addAttribute("data", result.get());
+//            return "detail.html";
+//        } else {
+//            return "redirect:/list";
+//        }
+//
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> handler() {
+//        return ResponseEntity.status(400).body("error");
+//    }
 }
