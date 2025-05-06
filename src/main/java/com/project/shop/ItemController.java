@@ -6,15 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.AttributedString;
+import java.util.Optional;
 
 @Controller
 public class ItemController {
 
     private final ItemService itemService;
+    private final ItemRepository itemRepository;
 
     @Autowired
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, ItemRepository itemRepository) {
         this.itemService = itemService;
+        this.itemRepository = itemRepository;
     }
 
     @GetMapping("/list")
@@ -48,6 +51,17 @@ public class ItemController {
             model.addAttribute("data", item);
             return "detail.html";
         } catch (IllegalArgumentException e) {
+            return "redirect:/list";
+        }
+    }
+
+    @GetMapping("/edit/{id}")
+    String edit(@PathVariable Long id, Model model) {
+        Optional<Item> result = itemRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("data", result.get());
+            return "edit.html";
+        } else {
             return "redirect:/list";
         }
     }
