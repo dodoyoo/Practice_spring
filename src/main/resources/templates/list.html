@@ -19,7 +19,7 @@
             <a th:href="@{ '/detail/' + ${i.id} }" th:text="${i.title}"> </a>
         </h4>
     <p th:text="${i.price + '원'}"></p>
-        <a href="/edit/1">✏️</a>
+        <a th:href="@{ '/edit/' + ${i.id} }">✏️</a>
 </div>
 </div>
 
